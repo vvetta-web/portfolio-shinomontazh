@@ -84,6 +84,12 @@
   }
   @media (max-width: 600px) { .hero__wheel { --w: 44vw; --r: 5vw; --b: 56vh; } }
   @media (max-width: 600px) and (max-height: 700px) { .hero__wheel { --w: 36vw; --b: 58vh; } }
+  /* низкое окно на десктопе: копия от нижнего края не влезает, ставим её под шапку */
+  @media (min-width: 861px) and (max-height: 800px) {
+    .hero__copy { top: clamp(4.25rem, 16vh, 6rem); bottom: auto; }
+    .hero__copy .v-display { font-size: var(--v-t-2xl); }
+    .hero__note { top: clamp(4.25rem, 16vh, 6rem); }
+  }
 
   /* ---- фирменный ход: сезонная шкала ------------------------------------- */
   .season { display: grid; grid-template-rows: 1fr auto auto; grid-template-columns: 1.3fr 1fr; column-gap: var(--v-8); height: 100%;
