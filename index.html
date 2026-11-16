@@ -68,7 +68,10 @@
   .hero__copy .v-display { font-size: var(--v-t-3xl); line-height: .98; }
   .hero__floor { position: absolute; inset: auto 0 0 0; height: 34%; z-index: 2; pointer-events: none;
     background: linear-gradient(to top, var(--v-canvas) 0%, rgb(13 11 9 / .6) 45%, transparent 100%); }
-  .hero__copy { bottom: clamp(4rem, 14vh, 10rem); max-width: min(42rem, 88vw); }
+  /* текст героя — по вертикальному центру слева; сцена стала флексом,
+     чтобы центрирование не зависело от метрик шрифта и не дралось с JS-кинетикой */
+  .hero__stage { display: flex; align-items: center; }
+  .hero__copy { position: relative; top: 2rem; left: var(--v-gutter); max-width: min(42rem, 88vw); }
   .hero__copy .v-lede { margin-top: var(--v-5); color: var(--v-ink); opacity: .9; }
   .hero__cta { display: flex; flex-wrap: wrap; gap: var(--v-3); margin-top: var(--v-6); }
   .hero__note { position: absolute; z-index: 3; right: var(--v-gutter); top: clamp(5rem, 14vh, 9rem); text-align: right; display: grid; gap: .3em; }
@@ -79,14 +82,16 @@
     .hero__wheel img { filter: drop-shadow(0 18px 24px rgb(0 0 0 / .6)); }
     .hero__wheel::after { display: none; }
     .hero__note { display: none; }
-    .hero__copy { bottom: clamp(3rem, 8vh, 5rem); }
+    .hero__stage { display: block; }
+    .hero__copy { position: absolute; top: auto; bottom: clamp(3rem, 8vh, 5rem); transform: none; }
     .hero__copy .v-display { font-size: var(--v-t-2xl); }
   }
   @media (max-width: 600px) { .hero__wheel { --w: 44vw; --r: 5vw; --b: 56vh; } }
   @media (max-width: 600px) and (max-height: 700px) { .hero__wheel { --w: 36vw; --b: 58vh; } }
   /* низкое окно на десктопе: копия от нижнего края не влезает, ставим её под шапку */
   @media (min-width: 861px) and (max-height: 800px) {
-    .hero__copy { top: clamp(4.25rem, 16vh, 6rem); bottom: auto; }
+    .hero__stage { display: block; }
+    .hero__copy { position: absolute; top: clamp(4.25rem, 16vh, 6rem); bottom: auto; transform: none; }
     .hero__copy .v-display { font-size: var(--v-t-2xl); }
     .hero__note { top: clamp(4.25rem, 16vh, 6rem); }
   }
@@ -251,7 +256,7 @@
 
     <!-- 1 · УЗНАВАНИЕ: hero из слоёв (экран А) -->
     <section data-v-act="pin" data-v-span="2.6" data-v-drift="#0d0b09" aria-label="Шиномонтаж к своему времени">
-      <div data-v-stage>
+      <div data-v-stage class="hero__stage">
         <div class="v-layer hero__back" data-v-parallax="-0.9">
           <picture>
             <img src="assets/hero.webp" alt="" width="1920" height="1067" fetchpriority="high">
